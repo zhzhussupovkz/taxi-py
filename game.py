@@ -22,30 +22,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-import pygame, sys
+from core.world import *
 
-pygame.init()
-
-SIZE = (640, 480)
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
-
-screen = pygame.display.set_mode(SIZE)
-background_image = pygame.image.load("./images/env/green.png").convert()
-road = pygame.image.load("./images/env/asphalt.png").convert()
-line = pygame.image.load("./images/env/line.png").convert()
-
-while True:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            sys.exit()
-
-    screen.blit(background_image, [0, 0])
-    screen.blit(road, [120, 0])
-    i = 10
-    while i <= 450:
-        screen.blit(line, [215, i])
-        i += 40
-
-    pygame.display.flip()
-pygame.quit()
+game = World()
+game.play()
