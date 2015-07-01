@@ -32,5 +32,6 @@ class World:
 
             self.screen.blit(self.background_image, [0, 0])
             self.draw()
+            self.taxi.driving()
             pygame.display.flip()
         pygame.quit()
