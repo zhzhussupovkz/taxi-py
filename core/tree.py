@@ -18,7 +18,12 @@ class Tree:
 
     def move(self):
         if self.y >= 480:
+            self.change()
             self.y = 0
         key = self.pygame.key.get_pressed()
         if key[self.pygame.K_UP]:
             self.y += 0.2
+
+    def change(self):
+        model = random.choice(['tree.png', 'tree_1.png'])
+        self.image = self.pygame.image.load("./images/houses/" + model)
