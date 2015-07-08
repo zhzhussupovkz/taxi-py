@@ -8,6 +8,7 @@ import random
 from road import *
 from taxi import *
 from driver import *
+from tree import *
 
 class World:
     SIZE = (640, 480)
@@ -21,8 +22,9 @@ class World:
         self.background_image = pygame.image.load("./images/env/green.png").convert()
         self.road = Road(pygame, self.screen)
         self.taxi = Taxi(pygame, self.screen, 256, 432)
-        self.drivers = []
+        self.drivers, self.trees = [], []
         self.gen_drivers()
+        self.gen_trees()
 
     def gen_drivers(self):
         i = 10
@@ -31,11 +33,20 @@ class World:
             self.drivers.append(Driver(pygame, self.screen, coord, i))
             i += 150
 
+    def gen_trees(self):
+        i = 10
+        while i <= 500:
+            self.trees.append(Tree(pygame, self.screen, 80, i))
+            self.trees.append(Tree(pygame, self.screen, 325, i))
+            i += 100
+
     def draw(self):
         self.road.draw()
         self.taxi.draw()
         for driver in self.drivers:
             driver.draw()
+        for tree in self.trees:
+            tree.draw()
 
     def play(self):
         while True:
@@ -48,6 +59,8 @@ class World:
             self.taxi.driving()
             for driver in self.drivers:
                 driver.driving()
+            for tree in self.trees:
+                tree.move()
             self.road.move()
             pygame.display.flip()
         pygame.quit()
