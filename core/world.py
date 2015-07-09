@@ -9,6 +9,7 @@ from road import *
 from taxi import *
 from driver import *
 from tree import *
+from house import *
 
 class World:
     SIZE = (640, 480)
@@ -22,9 +23,10 @@ class World:
         self.background_image = pygame.image.load("./images/env/green.png").convert()
         self.road = Road(pygame, self.screen)
         self.taxi = Taxi(pygame, self.screen, 256, 432)
-        self.drivers, self.trees = [], []
+        self.drivers, self.trees, self.houses = [], [], []
         self.gen_drivers()
         self.gen_trees()
+        self.gen_houses()
 
     def gen_drivers(self):
         i = 10
@@ -40,6 +42,13 @@ class World:
             self.trees.append(Tree(pygame, self.screen, 325, i))
             i += 100
 
+    def gen_houses(self):
+        i = 20
+        while i <= 500:
+            self.houses.append(House(pygame, self.screen, 25, i))
+            self.houses.append(House(pygame, self.screen, 370, i))
+            i += 100
+
     def draw(self):
         self.road.draw()
         self.taxi.draw()
@@ -47,6 +56,8 @@ class World:
             driver.draw()
         for tree in self.trees:
             tree.draw()
+        for house in self.houses:
+            house.draw()
 
     def play(self):
         while True:
@@ -61,6 +72,8 @@ class World:
                 driver.driving()
             for tree in self.trees:
                 tree.move()
+            for house in self.houses:
+                house.move()
             self.road.move()
             pygame.display.flip()
         pygame.quit()
