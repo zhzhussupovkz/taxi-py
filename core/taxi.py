@@ -21,6 +21,10 @@ class Taxi(Car):
         self.draw_score()
 
     def draw_score(self):
+        i = 0
+        for j in range(0, self.lives):
+            self.screen.blit(self.image, [485 + i, 190])
+            i += 34
         ui_sc = self.ui.render("Score: %s" % self.score, 1, (255, 255, 255))
         ui_money = self.ui.render("%s" % self.money, 1, (255, 255, 255))
         ui_damage = self.ui.render("%s" % self.damage, 1, (255, 255, 255))
