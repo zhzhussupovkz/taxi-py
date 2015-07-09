@@ -10,11 +10,27 @@ class Taxi(Car):
         self.pygame = pygame
         self.acc = pygame.mixer.Sound("./sounds/acc.ogg")
         self.acc.set_volume(0.01)
+        self.gear = 1
+        self.fuel, self.damage, self.money, self.lives, self.score, self.distance = 100, 100, 200, 3, 0, 0
+        self.ui = self.pygame.font.SysFont("monaco", 25)
         image = self.pygame.image.load("./images/cars/taxi.png")
         super(Taxi, self).__init__(screen, x, y, image)
 
     def draw(self):
         super(Taxi, self).draw()
+        self.draw_score()
+
+    def draw_score(self):
+        ui_sc = self.ui.render("Score: %s" % self.score, 1, (255, 255, 255))
+        ui_money = self.ui.render("%s" % self.money, 1, (255, 255, 255))
+        ui_damage = self.ui.render("%s" % self.damage, 1, (255, 255, 255))
+        ui_fuel = self.ui.render("%s" % self.fuel, 1, (255, 255, 255))
+        ui_gear = self.ui.render("%s" % self.gear, 1, (255, 255, 255))
+        self.screen.blit(ui_sc, (485, 20))
+        self.screen.blit(ui_money, (525, 82))
+        self.screen.blit(ui_damage, (525, 107))
+        self.screen.blit(ui_fuel, (525, 132))
+        self.screen.blit(ui_gear, (525, 157))
 
     def driving(self):
         key = self.pygame.key.get_pressed()

@@ -10,6 +10,7 @@ from taxi import *
 from driver import *
 from tree import *
 from house import *
+from board import *
 
 class World:
     SIZE = (640, 480)
@@ -27,6 +28,7 @@ class World:
         self.gen_drivers()
         self.gen_trees()
         self.gen_houses()
+        self.board = Board(pygame, self.screen)
 
     def gen_drivers(self):
         i = 10
@@ -50,6 +52,7 @@ class World:
             i += 100
 
     def draw(self):
+        self.board.draw()
         self.road.draw()
         self.taxi.draw()
         for driver in self.drivers:
