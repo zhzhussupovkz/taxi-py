@@ -9,7 +9,9 @@ class Taxi(Car):
     def __init__(self, pygame, screen, x, y):
         self.pygame = pygame
         self.acc = pygame.mixer.Sound("./sounds/acc.ogg")
+        self.beep_sound = pygame.mixer.Sound("./sounds/beep.ogg")
         self.acc.set_volume(0.01)
+        self.beep_sound.set_volume(0.01)
         self.gear = 1
         self.fuel, self.damage, self.money, self.lives, self.score, self.distance = 100, 100, 200, 3, 0, 0
         self.ui = self.pygame.font.SysFont("monaco", 25)
@@ -36,6 +38,10 @@ class Taxi(Car):
         self.screen.blit(ui_fuel, (525, 132))
         self.screen.blit(ui_gear, (525, 157))
 
+    def beep(self):
+        self.acc.stop()
+        self.beep_sound.play()
+
     def driving(self):
         key = self.pygame.key.get_pressed()
         if key[self.pygame.K_UP]:
@@ -48,3 +54,5 @@ class Taxi(Car):
             self.move_right()
         elif key[self.pygame.K_LEFT]:
             self.move_left()
+        if key[self.pygame.K_SPACE]:
+            self.beep()
