@@ -10,8 +10,14 @@ class Taxi(Car):
         self.pygame = pygame
         self.acc = pygame.mixer.Sound("./sounds/acc.ogg")
         self.beep_sound = pygame.mixer.Sound("./sounds/beep.ogg")
+        self.door_sound = pygame.mixer.Sound("./sounds/door.ogg")
+        self.crash_sound = pygame.mixer.Sound("./sounds/crash.ogg")
+        self.collect_sound = pygame.mixer.Sound("./sounds/collect.ogg")
         self.acc.set_volume(0.01)
         self.beep_sound.set_volume(0.01)
+        self.door_sound.set_volume(0.01)
+        self.crash_sound.set_volume(0.01)
+        self.collect_sound.set_volume(0.01)
         self.gear = 1
         self.fuel, self.damage, self.money, self.lives, self.score, self.distance = 100, 100, 200, 3, 0, 0
         self.ui = self.pygame.font.SysFont("monaco", 25)
