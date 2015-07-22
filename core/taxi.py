@@ -62,3 +62,22 @@ class Taxi(Car):
             self.move_left()
         if key[self.pygame.K_SPACE]:
             self.beep()
+
+    #add fuel
+    def refuel(self):
+        self.fuel += 10
+        if self.fuel >= 100:
+            self.fuel = 100
+        self.score += (3 * self.gear)
+
+    #repair auto
+    def repair(self):
+        self.damage += 10
+        if self.damage >= 100:
+            self.damage = 100
+        self.score += (5 * self.gear)
+
+    # add money
+    def coin(self):
+        self.money += 5
+        self.score += (10 * self.gear)
