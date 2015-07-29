@@ -5,6 +5,7 @@
 
 import pygame, sys
 import random
+import math
 from road import *
 from taxi import *
 from driver import *
@@ -75,6 +76,8 @@ class World:
             self.taxi.driving()
             for driver in self.drivers:
                 driver.driving()
+                if math.fabs(driver.x - self.taxi.x) <= 15 and math.fabs(driver.y - self.taxi.y) <= 15:
+                    self.taxi.add_injury()
             for tree in self.trees:
                 tree.move()
             for house in self.houses:

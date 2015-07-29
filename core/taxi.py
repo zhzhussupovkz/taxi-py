@@ -4,6 +4,7 @@
 # Taxi class - main player
 
 from car import *
+import time
 
 class Taxi(Car):
     def __init__(self, pygame, screen, x, y):
@@ -84,7 +85,7 @@ class Taxi(Car):
 
     # add injury
     def add_injury(self):
-        ey = self.pygame.key.get_pressed()
+        key = self.pygame.key.get_pressed()
         if key[self.pygame.K_UP]:
             self.damage -= (2 * self.gear)
         else:
@@ -93,10 +94,13 @@ class Taxi(Car):
         self.y += 15
         if self.damage <= 0:
             self.damage = 0
+            self.acc.stop()
             self.crash_sound.play()
             self.reboot()
 
     # reboot player
     def reboot(self):
         self.x, self.y = 250, 425
+        time.sleep(2)
         self.lives -= 1
+        self.damage = 100
