@@ -81,3 +81,22 @@ class Taxi(Car):
     def coin(self):
         self.money += 5
         self.score += (10 * self.gear)
+
+    # add injury
+    def add_injury(self):
+        ey = self.pygame.key.get_pressed()
+        if key[self.pygame.K_UP]:
+            self.damage -= (2 * self.gear)
+        else:
+            self.damage -= 2
+        self.x += 15
+        self.y += 15
+        if self.damage <= 0:
+            self.damage = 0
+            self.crash_sound.play()
+            self.reboot()
+
+    # reboot player
+    def reboot(self):
+        self.x, self.y = 250, 425
+        self.lives -= 1
