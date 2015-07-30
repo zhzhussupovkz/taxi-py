@@ -20,6 +20,7 @@ class Taxi(Car):
         self.crash_sound.set_volume(0.01)
         self.collect_sound.set_volume(0.01)
         self.gear = 1
+        self.passenger, self.dead = False, False
         self.fuel, self.damage, self.money, self.lives, self.score, self.distance = 100, 100, 200, 3, 0, 0
         self.ui = self.pygame.font.SysFont("monaco", 25)
         image = self.pygame.image.load("./images/cars/taxi.png")
@@ -104,3 +105,7 @@ class Taxi(Car):
         time.sleep(2)
         self.lives -= 1
         self.damage = 100
+
+    # game over
+    def game_over(self):
+        self.dead = True
