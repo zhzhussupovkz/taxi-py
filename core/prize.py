@@ -28,3 +28,4 @@ class Prize:
     def change(self):
         self.x, self.y, self.drawing = random.randint(225, 280), random.randint(10, 150), False
         self.type = random.choice(['fuel', 'money', 'damage'])
+        self.drawing = False

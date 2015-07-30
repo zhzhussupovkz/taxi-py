@@ -19,14 +19,27 @@ class Passenger:
         if drawing:
             self.screen.blit(self.image, [self.x, self.y])
 
+    # move passenger
     def move(self):
         if self.y >= 480:
             self.change()
             self.y = 0
+            self.drawing = False
         key = self.pygame.key.get_pressed()
         if key[self.pygame.K_UP]:
             self.y += 0.2
 
+    # change pass
     def change(self):
         model = random.choice(["boy.png", "girl.png"])
         self.image = self.pygame.image.load("./images/passengers/" + model)
+
+    # cab ride
+    def cab_ride(self):
+        self.distance -= 1000
+        if self.distance <= 0:
+            self.distance = 0
+
+    # update distance
+    def update_dist(self):
+        self.distance = random.randint(5000, 10000)
