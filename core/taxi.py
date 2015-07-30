@@ -20,8 +20,9 @@ class Taxi(Car):
         self.crash_sound.set_volume(0.01)
         self.collect_sound.set_volume(0.01)
         self.gear = 1
-        self.passenger, self.dead = False, False
+        self.passenger, self.dead, self.g = False, False, True
         self.fuel, self.damage, self.money, self.lives, self.score, self.distance = 100, 100, 200, 3, 0, 0
+        self.last_trip = self.last_prize = self.last_gear = int(time.time())
         self.ui = self.pygame.font.SysFont("monaco", 25)
         image = self.pygame.image.load("./images/cars/taxi.png")
         super(Taxi, self).__init__(screen, x, y, image)
@@ -64,6 +65,24 @@ class Taxi(Car):
             self.move_left()
         if key[self.pygame.K_SPACE]:
             self.beep()
+        self.transmission()
+
+    # transmission logic
+    def transmission(self):
+        key = self.pygame.key.get_pressed()
+        if key[self.pygame.K_LSHIFT] and self.g:
+            self.gear += 1
+            self.g = False
+        elif key[self.pygame.K_LCTRL] and self.g:
+            self.gear -= 1
+            self.g = False
+        if self.gear >= 4:
+            self.gear = 4
+        if self.gear <= 1:
+            self.gear = 1
+        if (int(time.time()) - self.last_gear) == 10:
+            self.g = True
+            self.last_gear = int(time.time())
 
     #add fuel
     def refuel(self):
