@@ -84,6 +84,18 @@ class Taxi(Car):
             self.g = True
             self.last_gear = int(time.time())
 
+    # add passenger
+    def add_passenger(self):
+        self.passenger = True
+        self.door_sound.play()
+
+    # delete passenger
+    def del_passenger(self):
+        self.acc.stop()
+        time.sleep(2)
+        self.passenger = False
+        self.door_sound.play()
+
     #add fuel
     def refuel(self):
         self.fuel += 10
