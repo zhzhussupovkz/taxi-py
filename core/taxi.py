@@ -7,16 +7,16 @@ from car import *
 import time
 
 class Taxi(Car):
-    def __init__(self, pygame, screen, x, y):
-        self.pygame = pygame
-        self.acc = pygame.mixer.Sound("./sounds/acc.ogg")
-        self.beep_sound = pygame.mixer.Sound("./sounds/beep.ogg")
-        self.door_sound = pygame.mixer.Sound("./sounds/door.ogg")
-        self.crash_sound = pygame.mixer.Sound("./sounds/crash.ogg")
-        self.collect_sound = pygame.mixer.Sound("./sounds/collect.ogg")
+    def __init__(self, world, screen, x, y):
+        self.pygame, self.world = world.pygame, world
+        self.acc = self.pygame.mixer.Sound("./sounds/acc.ogg")
+        self.beep_sound = self.pygame.mixer.Sound("./sounds/beep.ogg")
+        self.door_sound = self.pygame.mixer.Sound("./sounds/door.ogg")
+        self.crash_sound = self.pygame.mixer.Sound("./sounds/crash.ogg")
+        self.collect_sound = self.pygame.mixer.Sound("./sounds/collect.ogg")
         self.acc.set_volume(0.01)
         self.beep_sound.set_volume(0.01)
-        self.door_sound.set_volume(0.01)
+        self.door_sound.set_volume(0.1)
         self.crash_sound.set_volume(0.01)
         self.collect_sound.set_volume(0.01)
         self.gear = 1
@@ -50,6 +50,20 @@ class Taxi(Car):
     def beep(self):
         self.acc.stop()
         self.beep_sound.play()
+
+    def go(self):
+        self.distance += 10
+        if self.distance % 1000 == 0:
+            self.fuel -= (0.5 * self.gear)
+            if self.fuel <= 0:
+                self.fuel = 0
+            if self.passenger:
+                self.money += (10 * self.gear)
+                self.score += (100 * self.gear)
+                self.world.passenger.cab_ride()
+        if self.world.passenger.distance == 0:
+            self.del_passenger()
+            self.world.passenger.update_dist()
 
     def driving(self):
         key = self.pygame.key.get_pressed()
@@ -86,6 +100,7 @@ class Taxi(Car):
 
     # add passenger
     def add_passenger(self):
+        self.acc.stop()
         self.passenger = True
         self.door_sound.play()
 

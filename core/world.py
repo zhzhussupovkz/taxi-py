@@ -9,6 +9,7 @@ import math
 from road import *
 from taxi import *
 from driver import *
+from passenger import *
 from tree import *
 from house import *
 from board import *
@@ -21,10 +22,12 @@ class World:
     def __init__(self):
         pygame.init()
         pygame.display.set_caption('Taxi')
+        self.pygame = pygame
         self.screen = pygame.display.set_mode(self.SIZE)
         self.background_image = pygame.image.load("./images/env/green.png").convert()
         self.road = Road(pygame, self.screen)
-        self.taxi = Taxi(pygame, self.screen, 256, 432)
+        self.taxi = Taxi(self, self.screen, 256, 432)
+        self.passenger = Passenger(self, self.screen, 347.5, 25)
         self.drivers, self.trees, self.houses = [], [], []
         self.gen_drivers()
         self.gen_trees()
@@ -56,6 +59,7 @@ class World:
         self.board.draw()
         self.road.draw()
         self.taxi.draw()
+        self.passenger.draw()
         for driver in self.drivers:
             driver.draw()
         for tree in self.trees:
@@ -74,6 +78,8 @@ class World:
             self.screen.blit(self.background_image, [0, 0])
             self.draw()
             self.taxi.driving()
+            self.passenger.update()
+            self.passenger.move()
             for driver in self.drivers:
                 driver.driving()
                 if math.fabs(driver.x - self.taxi.x) <= 15 and math.fabs(driver.y - self.taxi.y) <= 15:
