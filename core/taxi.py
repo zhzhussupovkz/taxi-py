@@ -52,6 +52,8 @@ class Taxi(Car):
         self.beep_sound.play()
 
     def go(self):
+        if self.y >= 200:
+            self.y -= 0.5
         self.distance += 10
         if self.distance % 1000 == 0:
             self.fuel -= (0.5 * self.gear)
