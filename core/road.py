@@ -6,14 +6,14 @@
 from line import *
 
 class Road:
-    def __init__(self, pygame, screen):
-        self.pygame = pygame
+    def __init__(self, world, screen):
+        self.world, self.pygame = world, world.pygame
         self.screen = screen
-        self.road = pygame.image.load("./images/env/asphalt.png").convert()
+        self.road = self.pygame.image.load("./images/env/asphalt.png").convert()
         self.lines = []
         i = 10
         while i <= 450:
-            self.lines.append(Line(self.pygame, self.screen, 215, i))
+            self.lines.append(Line(self.world, self.screen, 215, i))
             i += 40
 
     def draw(self):
