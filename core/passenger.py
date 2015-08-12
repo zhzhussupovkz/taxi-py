@@ -34,7 +34,14 @@ class Passenger:
             self.drawing = False
         key = self.pygame.key.get_pressed()
         if key[self.pygame.K_UP]:
-            self.y += 0.2
+            if self.world.taxi.gear == 1:
+                self.y += 0.2
+            elif self.world.taxi.gear == 2:
+                self.y += 0.4
+            elif self.world.taxi.gear == 3:
+                self.y += 0.5
+            elif self.world.taxi.gear == 4:
+                self.y += 0.75
 
     # passenger game logic
     def update(self):
