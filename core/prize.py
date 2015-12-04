@@ -10,7 +10,8 @@ class Prize:
     def __init__(self, world, screen):
         self.world, self.pygame = world, world.pygame
         self.screen = screen
-        self.image = self.pygame.image.load("./images/env/present.png")
+        img = ["present_1.png", "present_2.png"]
+        self.image = self.pygame.image.load("./images/env/%s" % random.choice(img))
         self.x, self.y, self.drawing = random.randint(225, 280), random.randint(10, 150), False
         self.type = random.choice(['fuel', 'money', 'damage'])
 
@@ -28,7 +29,7 @@ class Prize:
     def move(self):
         if self.drawing:
             if self.world.taxi.gear == 1:
-                self.y += 0.75
+                self.y += 0.075
             elif self.world.taxi.gear == 2:
                 self.y += 0.1
             elif self.world.taxi.gear == 3:
