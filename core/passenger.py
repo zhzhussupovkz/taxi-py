@@ -51,7 +51,7 @@ class Passenger:
             if t == int(time.time()):
                 self.drawing = True
             key = self.pygame.key.get_pressed()
-            if key[self.pygame.K_z] and (self.ride == False):
+            if key[self.pygame.K_z] and (self.ride == False) and (self.drawing == True):
                 self.drawing = False
                 self.world.taxi.add_passenger()
 

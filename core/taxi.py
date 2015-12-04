@@ -112,6 +112,7 @@ class Taxi(Car):
         time.sleep(2)
         self.passenger = False
         self.door_sound.play()
+        self.world.passenger.drawing = True
 
     #add fuel
     def refuel(self):
